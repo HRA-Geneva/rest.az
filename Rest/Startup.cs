@@ -46,6 +46,9 @@ namespace Rest
 
             services.AddTransient<IBlogService, BlogService>();
             services.AddTransient<IPromotionService, PromotionService>();
+            services.AddTransient<IUserService, UserService>();
+
+            services.AddHttpContextAccessor();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
