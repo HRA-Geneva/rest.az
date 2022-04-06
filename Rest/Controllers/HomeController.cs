@@ -31,6 +31,7 @@ namespace Rest.Controllers
             vm.CategoryBlogs = await _blogService.GetTrendingCategoryBlogs();
             vm.Promotions = await _promotionService.GetCurrentPromotions();
 
+
             return View(vm);
         }
     }

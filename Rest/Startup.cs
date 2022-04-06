@@ -54,18 +54,16 @@ namespace Rest
                 .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
                 option =>
                 {
-                    option.LoginPath = "/Account/Login";
-                    option.LogoutPath = "/Account/Logout";
+                    option.LoginPath = "/Admin/Account/Login";
+                    option.LogoutPath = "/Admin/Account/Logout";
 
                     option.SlidingExpiration = true;
                     option.Cookie.HttpOnly = true;
                     option.Cookie.SameSite = SameSiteMode.Lax;
                     option.Cookie.IsEssential = true;
-                    option.Cookie.MaxAge = TimeSpan.FromSeconds(5);
+                    option.Cookie.MaxAge = TimeSpan.FromMinutes(5);
 
                 });
-
-
 
         }
 

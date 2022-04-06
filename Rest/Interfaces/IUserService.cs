@@ -6,6 +6,6 @@ namespace Rest.Interfaces
 {
     public interface IUserService
     {
-        Task<bool> Login(ModelStateDictionary ModelState, LoginModel model);
+        Task<bool> Login(ModelStateDictionary ModelState, LoginModel model,bool isAdminPanel=false);
     }
 }

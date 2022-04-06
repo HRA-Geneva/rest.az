@@ -32,7 +32,6 @@ namespace Rest.Controllers
             return View(new LoginModel());
         }
 
-
         [HttpPost]
         public async Task<IActionResult> Login(LoginModel model)
         {
@@ -42,5 +41,6 @@ namespace Rest.Controllers
             else
                 return View(model);
         }
+
     }
 }

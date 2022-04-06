@@ -1,0 +1,27 @@
+﻿@{
+    Layout = null;
+}
+@model LoginModel
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+</head>
+
+<body>
+
+    <h1>Admin login</h1>
+    <div>
+        <form action="@Url.Action("Login","Account")" method="post">
+            @Html.ValidationSummary(true)
+            <label for="email">Email</label>
+            <input value="@Model.Email" name="Email" id="email" type="email" />
+            @Html.ValidationMessageFor(c=>c.Email)
+            <label for="password">Şifrə</label>
+            <input name="Password" id="password" type="password" />
+            @Html.ValidationMessageFor(c=>c.Password)
+
+            <button type="submit">Daxil ol</button>
+        </form>
+    </div>
+</body>
+</html>

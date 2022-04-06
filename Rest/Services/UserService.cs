@@ -5,12 +5,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using Rest.Data;
+using Rest.Enums;
 using Rest.Interfaces;
 using Rest.Models;
 using Rest.Models.ViewModels.Account;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Rest.Services
@@ -24,8 +27,9 @@ namespace Rest.Services
             _context = context;
             _httpContext = httpContextAccessor.HttpContext;
         }
-        public async Task<bool> Login(ModelStateDictionary ModelState, LoginModel model)
+        public async Task<bool> Login(ModelStateDictionary ModelState, LoginModel model,bool isAdminPanel=false)
         {
+
             //Validation
 
             if (!ModelState.IsValid)
@@ -36,6 +40,12 @@ namespace Rest.Services
             User user = await _context.Users
                                     .Where(c => c.Email == model.Email)
                                         .FirstOrDefaultAsync();
+
+            if(isAdminPanel == true && user.UserRoleId != (int)UserRoleEnum.Admin)
+            {
+                ModelState.AddModelError("", "Sizin sisteme giris huququnuz yoxdur.");
+                return false;
+            }
 
             if (user == null)
             {
@@ -60,7 +70,7 @@ namespace Rest.Services
                      new Claim("id",user.Id.ToString()),
                      new Claim("name", user.Name),
                      new Claim("surname", user.Surname),
-                     new Claim("role", "Administrator"),
+                     new Claim("role", user.UserRoleId.ToString()),
                  };
 
                 var claimsIdentity = new ClaimsIdentity(
