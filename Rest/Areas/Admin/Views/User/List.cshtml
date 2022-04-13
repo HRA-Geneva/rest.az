@@ -1,0 +1,53 @@
+﻿@model UserListVm
+
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Istifadəçilər</h4>
+        <p class="card-description">
+            rest.az saytından qeydiyyatdan keçmiş bütün istifadəçilərin siyahısı aşağıdadır. Falan!
+        </p>
+        <div class="table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Şəkil</th>
+                        <th>Ad</th>
+                        <th>Soyad</th>
+                        <th>Istifadəçi adı</th>
+                        <th>E-poçt</th>
+                        <th>Rol</th>
+                        <th>Status</th>
+                        <th>Parametrlər</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var user in Model.Users)
+                    {
+                        <tr>
+                            <td><img style="width:80px;height:80px;" src="~/uploads/users/@user.Image" /></td>
+                            <td>@user.Name</td>
+                            <td>@user.Surname</td>
+                            <td>@user.UserName</td>
+                            <td>@user.Email</td>
+                            <td><label class="badge @(user.UserRoleId == (int)UserRoleEnum.Admin?"badge-danger":(user.UserRoleId==(int)UserRoleEnum.Moderator?"badge-primary":"badge-success"))">@user.UserRoleName</label></td>
+                            <td><label class="badge @(user.UserStatusId == (int)UserStatusEnum.Active?"badge-success":"badge-danger")">@user.UserStatusName</label></td>
+                            <td>
+                                <a class="btn btn-outline-info btn-fw" href="@Url.Action("Detail","User",new {userId = user.UserId})">Detallar</a> / <a class="btn btn-outline-warning btn-fw" href="@Url.Action("Edit","User",new{userId = user.UserId})">Düzəliş</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+
+                
+            </table>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                    @for (var i = 1; i <= Model.TotalPage; i++)
+                    {
+                        <a href="@Url.Action("List","User",new {page = @i})" class="btn btn-outline-secondary">
+                            @i
+                        </a>
+                    }
+                </div>
+        </div>
+    </div>
+</div>

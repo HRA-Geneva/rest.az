@@ -7,12 +7,10 @@ namespace Rest.Areas.Admin.Controllers
     [MyAuth("Admin")]
     public class HomeController : Controller
     {
-
         public IActionResult Index()
         {
             return View();
         }
-      
 
     }
 }

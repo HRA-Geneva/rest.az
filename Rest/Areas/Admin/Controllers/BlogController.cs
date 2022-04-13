@@ -7,8 +7,9 @@ namespace Rest.Areas.Admin.Controllers
     [MyAuth("Admin")]
     public class BlogController : Controller
     {
-        public IActionResult Index()
+        public IActionResult List()
         {
+            ViewBag.ActiveNav = "Blog";
             return View();
         }
     }
